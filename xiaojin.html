@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<head>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/xiaojin.css">
+  <script src="./js/jquery-3.3.1.min.js"></script>
+  <script src="./js/xiaojin.js"></script>
+</head>
+
+<body>
+  <div class="xiaojin" id="xiaojin">
+    <div class="banner">
+      <div class="start_time"><i class="xingxing"></i><span>2019年12月30日 - 2020年1月12日</span><i class="xingxing"></i>
+      </div>
+      <a href="javascript:;" class="active_detail">活动详情</a>
+      <div class="card_tips">
+        <p>您已连续</p>
+        <p>签到<b class="day">{{dataList.length}}</b>天</p>
+      </div>
+    </div>
+    <div class="tabbox">
+      <ul class="tabhd">
+        <li class="on">
+          <h3>第一周</h3>
+          <p>02月17号~02月23号</p>
+        </li>
+        <li>
+          <h3>第二周</h3>
+          <p>02月24号~03月01号</p>
+        </li>
+      </ul>
+      <div class="tabbd">
+        <div class="tabbd_wrap">
+          <div class="h10"></div>
+          <div class="bet_amount">今天还需投注<b class="need_amount">3888</b>就可以签到</div>
+          <div class="h10"></div>
+          {{timerList}}
+          <!-- <template v-if="list.length==0"> -->
+          <div class="money_list1">
+            <!-- 未领取 -->
+            <!-- 今日 -->
+            <template v-for="(value,index) in list">
+              <!-- 未领取 -->
+              <div class="money_item" :key="index" v-if="!value.flag"
+                :class="{'today':!today && index === dataList.length}">
+                <span class="money_date" v-if="!today && index === dataList.length">今天</span>
+                <span class="money_date" v-else>{{index+1}}天</span>
+              </div>
+              <template v-if="value.flag ===1">
+                <!-- 已过期 -->
+                <div class="money_item1 guoqi" v-if="todayTime > (value.exirationTime*1000)">
+                  <span class="money_date1"><b>{{value.statDate}}</b></span>
+                </div>
+                <!-- 可领取 -->
+
+                <div class="money_item1" :key="index" v-else>
+                  <div class="onlytime" v-if="timerList[index].endTimeStr">
+                    <b >{{timerList[index].endTimeStr}}</b ><span>后失效</span>
+                  </div>
+                  <span class="money_get" itemno="">领取礼金</span>
+                </div>
+              </template>
+
+              <!-- 已领取 -->
+              <div class="money_item2" v-if="value.flag ===2">
+                <span class="money_date1"><b>{{value.statDate}}</b></span>
+              </div>
+            </template>
+            <!-- <div class="money_item"><span class="money_date">2天</span></div>
+              <div class="money_item"><span class="money_date">3天</span></div>
+              <div class="money_item"><span class="money_date">4天</span></div>
+              <div class="money_item"><span class="money_date">5天</span></div> -->
+            <!-- 可领取 -->
+            <!-- <div class="money_item1">
+                      <div class="onlytime">
+                            <b>17:20:30</b><span>后失效</span>
+                      </div>
+                      <span class="money_get" itemno="">领取礼金</span>
+                    </div> -->
+            <!-- 已领取 -->
+            <!-- <div class="money_item2"><span class="money_date1"><b>02/03</b></span></div> -->
+            <!-- 领取过期 -->
+            <!-- <div class="money_item1 guoqi" v-if="value.flag ===1 && todayTime > value.exirationTime">
+                      <span class="money_date1"><b>02/03</b></span>
+                    </div> -->
+          </div>
+          <div class="h10"></div>
+          <div class="money_list2">
+            <!-- 可领取 -->
+            <!-- <div class="kelingqu"><p class="sixday"><b>17:20:30</b><span>后失效</span></p><span class="money_get">领取大礼</span></div> -->
+            <!-- 已领取 -->
+            <!-- <div class="kelingqu"><p>大礼包已领取</p><span class="money_date1"><b>02/03</b></span></div> -->
+            <!-- 领取过期-->
+            <!-- <div class="kelingqu guoqi"><span class="money_date1"><b>02/03</b></span></div> -->
+            <!-- 未领取 -->
+            <!-- 今日 -->
+            <!-- <div class="weilingqu today"><h3>连续签到6天</h3><p><b>18</b>元大礼包</p></div> -->
+            <div class="weilingqu">
+              <h3>连续签到6天</h3>
+              <p><b>18</b>元大礼包</p>
+            </div>
+            <div class="weilingqu">
+              <h3>连续签到7天</h3>
+              <p><b>18</b>元大礼包</p>
+            </div>
+          </div>
+          <!-- </template> -->
+
+          <div class="h10"></div>
+          <a class="xiaojin_go" href="javascript:;">立刻进入小金体育</a>
+        </div>
+      </div>
+    </div>
+    <div class="pop-newYear2019">
+      <div class="pop pop-rule">
+        <div class="rule">
+          <p><span>1.</span>活动时间：xxxx - xxxx</p>
+          <p><span>2.</span>有效投注额达到要求后，将自动激活签到。</p>
+          <p><span>3.</span>有效投注额达到要求后，将自动激活签到。</p>
+          <p><span>4.</span>有效投注额达到要求后，将自动激活签到。。</p>
+          <p><span>5.</span>有效投注额达到要求后，将自动激活签到。</p>
+          <p><span>6.</span>有效投注额达到要求后，将自动激活签到。。</p>
+        </div>
+        <div class="close"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- <script src="./js/vue.min.js"></script> -->
+<script>
+  //屏幕适应
+  (function (win, doc) {
+    if (!win.addEventListener) return;
+
+    function setFont() {
+      var html = document.documentElement;
+      var k = 750;
+      //html.style.fontSize = html.clientWidth / k * 100 + "px!important";
+      html.style.cssText = 'font-size:' + html.clientWidth / k * 200 + "px!important";
+    }
+
+    setFont();
+    setTimeout(function () {
+      setFont();
+    }, 300);
+    doc.addEventListener('DOMContentLoaded', setFont, false);
+    win.addEventListener('resize', setFont, false);
+    win.addEventListener('load', setFont, false);
+  })(window, document);
+</script>
+<script>
+  data = [
+    {
+      activityId: "E0320200114342Q01",
+      productId: "E03",
+      loginName: "vdowen1",
+      flag: 1,
+      amount: 8,
+      totalBetAmount: 2606428.74,
+      totalValidBetAmount: 2606428.74,
+      totalRemainAmount: 2606428.74,
+      statDate: "02/01",
+      exirationTime: 1780810400,
+      exirationTime1: "2020-02-07 18:00:00",
+      itemNo: 1
+    },
+    {
+      activityId: "E0320200114342Q01",
+      productId: "E03",
+      loginName: "vdowen1",
+      flag: 1,
+      amount: 8,
+      totalBetAmount: 2606428.74,
+      totalValidBetAmount: 2606428.74,
+      totalRemainAmount: 2606428.74,
+      statDate: "02/02",
+      exirationTime: 1581323855,
+      exirationTime1: "2020-02-07 18:00:00",
+      itemNo: 2
+    }
+  ]
+
+  // 倒计时方法
+
+
+
+  new Vue({
+    el: '#xiaojin',
+    data: {
+      // flag:1 =>已签到   flag:2 =>已领取
+      // statDate 签到日期
+      // exirationTime1 领取奖励的截至时间
+      list: [{}, {}, {}, {}, {}], //本地数据
+      dataList: [],
+      todayTime: new Date().getTime(), // 今天时间戳
+      todayDate: parseTime(this.todayTime, '{m}/{d}'), //今日日期 与 statDate做比较
+      today: false, // 是否Wie今天
+      timerList: []
+    },
+    mounted() {
+      this.getjson();
+      setInterval(val => {
+        this.daojishi += 1
+      }, 1000);
+    },
+    methods: {
+      getjson: function () {//获取服务器数据
+        this.dataList = data;
+        for (let i = 0; i < data.length; i++) {  //初始化本地数据
+          if (data[i]) {
+            this.list[i] = data[i]
+          }
+        }
+      }
+    },
+    watch: {
+      dataList(value) {
+        // 获取服务器数据是否包含今天
+        if (this.todayDate == (value[value.length - 1] && value[value.length - 1].statDate)) {
+          this.today = true
+        } else {
+          this.today = false
+        }
+        // 生成倒计时数组
+        for (let i = 0; i < value.length; i++) {
+          if (value[i].flag == 1 && this.todayTime < (value[i].exirationTime * 1000)) {
+            this.timerList.push({ endTime: value[i].exirationTime, nowTime: (new Date()).getTime() })
+          } else {
+            this.timerList.push({})
+          }
+        }
+      },
+      timerList(value) {  // 监视倒计时数组生成倒计时
+        let _this = this
+        for (let i = 0; i < value.length; i++) {
+          if (value[i].endTime) {
+            let timer = setInterval(function () {
+              if (value[i].nowTime > value[i].endTime*1000) {
+                clearInterval(timer);
+                timer = null;
+                // value[i].endTimeStr = '00:00:00';
+                // 暂时改为刷新页面
+                window.location.reload();
+                _this.getjson() // 当有过期时重新获取数据
+                return;
+              }
+              value[i].nowTime += 1000;
+              value[i].endTimeStr = cd(value[i].endTime * 1000, value[i].nowTime)
+            }, 1000)
+          }
+        }
+      }
+    }
+  })
+
+
+</script>
+
+</html>
